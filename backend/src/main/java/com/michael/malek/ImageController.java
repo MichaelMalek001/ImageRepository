@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,9 +24,9 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 	
-	@PostMapping("/addImage")
-	public Image addProduct(@RequestBody Image image) {
-		return imageService.saveImage(image);
+	@PostMapping(value = "/addImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file, @RequestParam String name, @RequestParam double price, @RequestParam String description) {
+		return imageService.saveImage(file, name, price, description);
 	}
 	
 	@PostMapping("/addImages")
@@ -58,10 +59,4 @@ public class ImageController {
 		return imageService.deleteImageById(id);
 	}
 	
-	// temp, just to see if uploading a file works
-	@PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-	public String uploadImage(@RequestParam("file") MultipartFile file){
-		System.out.println(file.getOriginalFilename());
-		return "upload works!";
-	}
 }

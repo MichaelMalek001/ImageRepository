@@ -3,7 +3,10 @@ package com.michael.malek;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -12,8 +15,19 @@ public class ImageService {
 	@Autowired
 	private ImageRepository repo;
 
-	public Image saveImage(Image image) {
-		return repo.save(image);
+	public ResponseEntity<?> saveImage(MultipartFile file, String name, double price, String description) {
+		System.out.println(name);
+		System.out.println(price);
+		System.out.println(description);
+		try {
+			Utils.saveImageToDisk(file);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+		
+		//TODO 
+		// Add logic to save the Image Object to the database
+		return ResponseEntity.ok("File Uploaded Successfully");
 	}
 	
 	public List<Image> saveImages(List<Image> image){

@@ -15,6 +15,7 @@ public class Image {
 	String name;
 	double price;
 	String description;
+	String filePath;
 	
 	public int getId() {
 		return id;
@@ -47,9 +48,20 @@ public class Image {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
 	@Override
 	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description + "]";
+		return "Image [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description
+				+ ", filePath=" + filePath + "]";
 	}
+	
+	
 }
