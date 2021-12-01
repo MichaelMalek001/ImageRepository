@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <Button onClick={() => this.setState({show: true})}>Click here to open modal</Button>
+        <Button onClick={() => this.setState({show: true})}>Upload image file!</Button>
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Upload Image File</Modal.Title>

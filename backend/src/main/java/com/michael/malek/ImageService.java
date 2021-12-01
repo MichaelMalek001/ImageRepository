@@ -16,22 +16,24 @@ public class ImageService {
 	private ImageRepository repo;
 
 	public ResponseEntity<?> saveImage(MultipartFile file, String name, double price, String description) {
-		System.out.println(name);
-		System.out.println(price);
-		System.out.println(description);
+		String fileLocation;
 		try {
-			Utils.saveImageToDisk(file);
+			fileLocation = Utils.saveImageToDisk(file);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 		
-		//TODO 
-		// Add logic to save the Image Object to the database
+		Image image = new Image();
+		image.setName(name);
+		image.setPrice(price);
+		image.setDescription(description);
+		image.setFilePath(fileLocation);
+		repo.save(image);
 		return ResponseEntity.ok("File Uploaded Successfully");
 	}
 	
-	public List<Image> saveImages(List<Image> image){
-		return repo.saveAll(image);
+	public List<Image> saveImages(List<Image> images){
+		return repo.saveAll(images);
 	}
 	
 	public Image getImageById(int id) {

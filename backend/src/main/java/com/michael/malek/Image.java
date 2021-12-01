@@ -12,10 +12,10 @@ public class Image {
 	@Id
 	@GeneratedValue 
 	private int id;
-	String name;
-	double price;
-	String description;
-	String filePath;
+	private String name;
+	private double price;
+	private String description;
+	private String filePath;
 	
 	public int getId() {
 		return id;

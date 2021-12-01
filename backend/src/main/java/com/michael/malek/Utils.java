@@ -1,26 +1,30 @@
 package com.michael.malek;
 
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
 public class Utils {
 
-	public static void saveImageToDisk(MultipartFile file) throws Exception{
-		//String currentDirectory = System.getProperty("user.dir");
+	// Saves given file to the disk. 
+	// Returns the complete path where the file was stored
+	public static String saveImageToDisk(MultipartFile file) throws Exception{
+		Utils.checkPath();
 		String fileName = file.getOriginalFilename();
 		byte[] bytes = file.getBytes();
-		Path path = Paths.get("C:\\upload\\" + fileName);
+		Path path = Paths.get("C:\\upload\\" + new Date().getTime() + "-" + fileName);
 		Files.write(path, bytes);
+		return path.toString();
 	}
 	
+	
+	// Helper method to ensure that the directory where the files will be stored exists
 	public static void checkPath() {
-		//TODO 
-		// Make a function to check if the desired path to store the image file or not
-		// If it exists already, do nothing
-		// if it doesn't, create it
-		// This method should be called by the saveImageToDisk method before attempting to save to image to the disk
+		new File("C:\\upload").mkdirs();		 
 	}
 }
+ 

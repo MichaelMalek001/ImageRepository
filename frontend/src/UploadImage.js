@@ -43,6 +43,10 @@ const UploadImage = () => {
                 console.log(res.data);
                 alert("File uploaded successfully.")
         })   
+
+        setName('');
+        setPrice(0.00);
+        setDescription('')
     }
 
     return (
