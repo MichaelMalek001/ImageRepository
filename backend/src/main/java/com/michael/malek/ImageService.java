@@ -1,5 +1,8 @@
 package com.michael.malek;
 
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +39,21 @@ public class ImageService {
 		return repo.saveAll(images);
 	}
 	
-	public Image getImageById(int id) {
-		return repo.findById(id).orElse(null);
+	public ResponseEntity<FileResource> getImageById(int id) {
+		Image image = repo.findById(id).orElse(null);
+		FileResource fileResource = new FileResource();
+		if (image!=null) {
+			fileResource.setFilename(image.getName());
+			String fileName = image.getFilePath();
+			byte[] bytes;
+			try {
+				bytes = Files.readAllBytes(Paths.get(fileName));
+				fileResource.setContent(bytes);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return ResponseEntity.ok().body(fileResource);
 	}
 	
 	public Image getImageByName(String name) {

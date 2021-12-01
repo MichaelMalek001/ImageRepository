@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -35,7 +36,7 @@ public class ImageController {
 	}
 	
 	@GetMapping("/getImageById/{id}")
-	public Image giveImageById(@PathVariable int id) {
+	public ResponseEntity<FileResource> giveImageById(@PathVariable int id) {
 		return imageService.getImageById(id);
 	}
 	
