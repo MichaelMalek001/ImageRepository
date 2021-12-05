@@ -3,10 +3,12 @@ package com.michael.malek;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,17 +44,21 @@ public class ImageService {
 	public ResponseEntity<FileResource> getImageById(int id) {
 		Image image = repo.findById(id).orElse(null);
 		FileResource fileResource = new FileResource();
+		byte[] bytes = null;
 		if (image!=null) {
-			fileResource.setFilename(image.getName());
 			String fileName = image.getFilePath();
-			byte[] bytes;
 			try {
 				bytes = Files.readAllBytes(Paths.get(fileName));
-				fileResource.setContent(bytes);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+		String encodedString = Base64.getEncoder().encodeToString(bytes);
+		fileResource.setDescription(image.getDescription());
+		fileResource.setPrice(image.getPrice());
+		fileResource.setEncodedContent(encodedString);
+		fileResource.setId(id);
+		fileResource.setName(image.getName());
 		return ResponseEntity.ok().body(fileResource);
 	}
 	

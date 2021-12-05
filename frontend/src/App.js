@@ -9,7 +9,12 @@ import HTTPService from "./HTTPService";
 class App extends Component {
   
   state = {
-    show: false
+    show: false,
+    imageSrc: '',
+    imageName: '',
+    imageDescription: '',
+    imagePrice: 0.0,
+    imageId: null
   };
 
   handleClose = () => {
@@ -17,12 +22,17 @@ class App extends Component {
   };
 
   tempMethod = () => {
-    var result = HTTPService.getImageById(1)
+    HTTPService.getImageById(1)
     .then(res => {
             console.log(res.data);
+            var imageValue = "data:image/jpeg;base64,"+res.data.encodedContent;
+            this.setState({imageSrc: imageValue});
+            this.setState({imageId: res.data.id});
+            this.setState({imageName: res.data.name});
+            this.setState({imageDescription: res.data.description});
+            this.setState({imagePrice: res.data.price});
             alert("Image served successfully")
     })
-    console.log(result);
   };
 
   render() {
@@ -30,6 +40,15 @@ class App extends Component {
       <div className="container">
         <div>
           <Button variant="primary" onClick={this.tempMethod}>Display all images</Button>
+          <img alt="This is supposed to be an bruh" src={this.state.imageSrc} height='100' width='200'/>
+          <br/>
+          {this.state.imageId}
+          <br/>
+          {this.state.imageName}
+          <br/>
+          {this.state.imageDescription}
+          <br/>
+          {this.state.imageName}
         </div>
         <br/>
         <Button onClick={() => this.setState({show: true})}>Upload image file!</Button>

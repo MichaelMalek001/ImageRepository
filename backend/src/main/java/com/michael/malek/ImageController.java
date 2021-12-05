@@ -35,7 +35,7 @@ public class ImageController {
 		return imageService.saveImages(images); 
 	}
 	
-	@GetMapping(value = "/getImageById/{id}", produces = MediaType.IMAGE_JPEG_VALUE)
+	@GetMapping("/getImageById/{id}") 
 	public ResponseEntity<FileResource> giveImageById(@PathVariable int id) {
 		return imageService.getImageById(id);
 	}

@@ -3,29 +3,53 @@ package com.michael.malek;
 import java.util.Arrays;
 
 public class FileResource {
-	private String filename;
-	private byte[] content;
+	private String name;
+	private String encodedContent;
+	private String description;
+	private int id;
+	private double price;
 	
-	public String getFilename() {
-		return filename;
+	public String getName() {
+		return name;
 	}
-
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public byte[] getContent() {
-		return content;
+	
+	public String getEncodedContent() {
+		return encodedContent;
 	}
-
-	public void setContent(byte[] content) {
-		this.content = content;
+	
+	public void setEncodedContent(String encodedContent) {
+		this.encodedContent = encodedContent;
 	}
-
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public double getPrice() {
+		return price;
+	}
+	
+	public void setPrice(double price) {
+		this.price = price;
+	}
 	@Override
 	public String toString() {
-		return "FileResource [filename=" + filename + ", content=" + Arrays.toString(content) + "]";
+		return "FileResource [name=" + name + ", encodedContent=" + encodedContent + ", description=" + description
+				+ ", id=" + id + ", price=" + price + "]";
 	}
-	
-	
 }
