@@ -34,7 +34,7 @@ class App extends Component {
             <Modal.Title>Upload Image File</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <UploadImage/>
+            <UploadImage closeModal={this.handleClose}/>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={this.handleClose}>

@@ -1,5 +1,6 @@
 package com.michael.malek;
 
+import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -62,9 +63,23 @@ public class ImageService {
 		return ResponseEntity.ok().body(allFileResources);
 	}
 	
-	public String deleteImageById(int id) {
-		repo.deleteById(id);
-		return 	"Image with id" + id + "has been removed.";
+	public ResponseEntity<String> deleteImageById(int id) {
+		Image image = repo.findById(id).orElse(null);
+		if(image!=null) {
+			// Delete image file from folder
+			File fileToDelete = new File(image.getFilePath());
+			try {
+				fileToDelete.delete();
+			} catch (Exception e) {
+				return ResponseEntity.internalServerError().body(e.getMessage());
+			}
+			// Delete image file from database
+			repo.deleteById(id);
+			return 	ResponseEntity.ok().body("Image with id " + id + " has been removed.");
+		}
+		else {
+			return ResponseEntity.badRequest().body("Image with id " + id + " does not exist");
+		}
 	}
 	
 	// there is also a method called deleteByIDs which will allow me to delete a list of 

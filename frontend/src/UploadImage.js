@@ -3,7 +3,7 @@ import React from "react";
 import Button from 'react-bootstrap/Button';
 import HTTPService from "./HTTPService";
 
-const UploadImage = () => {
+const UploadImage = (props) => {
 
     const [selectedFile, setSelectedFile] = React.useState(null);
     const [name, setName] = React.useState('');
@@ -47,6 +47,7 @@ const UploadImage = () => {
         setName('');
         setPrice(0.00);
         setDescription('')
+        props.closeModal();
     }
 
     return (
@@ -57,7 +58,7 @@ const UploadImage = () => {
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="name">
-                <Form.Label>Price</Form.Label>
+                <Form.Label>Price ($)</Form.Label>
                 <Form.Control type="number" value={price} onChange={(e) => {setPrice(e.target.value)}} placeholder="Enter name of the image" min={0} max={100} step={0.1} precision={2}/>
             </Form.Group>
 

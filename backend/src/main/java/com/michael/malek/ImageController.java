@@ -59,7 +59,7 @@ public class ImageController {
 	}
 	
 	@DeleteMapping("/deleteImage/{id}")
-	public String deleteImage(@PathVariable int id) {
+	public ResponseEntity<String> deleteImage(@PathVariable int id) {
 		return imageService.deleteImageById(id);
 	}
 	

@@ -7,22 +7,20 @@ import ImageRow from "./ImageRow";
 const ImageTable = () => {
 
     const [images, setImages] = React.useState([]);
-    /*var imageValue = "data:image/jpeg;base64,"+res.data.encodedContent;
-    this.setState({imageSrc: imageValue});
-    <img alt="Random" src={this.state.imageSrc} height='100' width='200'/>*/
 
-    const tempMethod = () => {
+    const getImages = () => {
         HTTPService.getAllImages()
         .then(res => {
                 setImages(res.data);
         })
       };
 
-      const imageRows = images.map(image => (<ImageRow image={image} key={image.id}></ImageRow>))
+    const imageRows = images.map(image => (<ImageRow image={image} key={image.id}></ImageRow>))
+
 
     return (
         <div>
-            <Button onClick={tempMethod}>Update table!</Button>
+            <Button onClick={getImages}>Refresh table!</Button>
             <Table striped bordered hover>
             <thead>
                 <tr>
@@ -31,6 +29,7 @@ const ImageTable = () => {
                 <th>Name</th>
                 <th>Price ($)</th>
                 <th>Description</th>
+                <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
