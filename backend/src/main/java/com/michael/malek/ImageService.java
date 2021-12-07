@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,22 +44,7 @@ public class ImageService {
 	
 	public ResponseEntity<FileResource> getImageById(int id) {
 		Image image = repo.findById(id).orElse(null);
-		FileResource fileResource = new FileResource();
-		byte[] bytes = null;
-		if (image!=null) {
-			String fileName = image.getFilePath();
-			try {
-				bytes = Files.readAllBytes(Paths.get(fileName));
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		String encodedString = Base64.getEncoder().encodeToString(bytes);
-		fileResource.setDescription(image.getDescription());
-		fileResource.setPrice(image.getPrice());
-		fileResource.setEncodedContent(encodedString);
-		fileResource.setId(id);
-		fileResource.setName(image.getName());
+		FileResource fileResource = Utils.imageToFileResource(image);
 		return ResponseEntity.ok().body(fileResource);
 	}
 	
@@ -66,8 +52,14 @@ public class ImageService {
 		return repo.findByName(name);
 	}
 	
-	public List<Image> getAllImages(){
-		return repo.findAll();
+	public ResponseEntity<List<FileResource>> getAllImages(){
+		List<Image> allImages =  repo.findAll();
+		List<FileResource> allFileResources = new LinkedList<FileResource>(); 
+		for (Image image : allImages) {
+			FileResource fileResource = Utils.imageToFileResource(image);
+			allFileResources.add(fileResource);
+		}
+		return ResponseEntity.ok().body(allFileResources);
 	}
 	
 	public String deleteImageById(int id) {

@@ -22,7 +22,7 @@ class App extends Component {
   };
 
   tempMethod = () => {
-    HTTPService.getImageById(1)
+    HTTPService.getImageById(2)
     .then(res => {
             console.log(res.data);
             var imageValue = "data:image/jpeg;base64,"+res.data.encodedContent;
@@ -40,7 +40,7 @@ class App extends Component {
       <div className="container">
         <div>
           <Button variant="primary" onClick={this.tempMethod}>Display all images</Button>
-          <img alt="This is supposed to be an bruh" src={this.state.imageSrc} height='100' width='200'/>
+          <img alt="Random" src={this.state.imageSrc} height='100' width='200'/>
           <br/>
           {this.state.imageId}
           <br/>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,26 @@ public class Utils {
 	// Helper method to ensure that the directory where the files will be stored exists
 	public static void checkPath() {
 		new File("C:\\upload").mkdirs();		 
+	}
+	
+	public static FileResource imageToFileResource(Image image) {
+		FileResource fileResource = new FileResource();
+		byte[] bytes = null;
+		if (image!=null) {
+			String fileName = image.getFilePath();
+			try {
+				bytes = Files.readAllBytes(Paths.get(fileName));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		String encodedString = Base64.getEncoder().encodeToString(bytes);
+		fileResource.setDescription(image.getDescription());
+		fileResource.setPrice(image.getPrice());
+		fileResource.setEncodedContent(encodedString);
+		fileResource.setId(image.getId());
+		fileResource.setName(image.getName());
+		return fileResource;
 	}
 }
  
