@@ -9,6 +9,10 @@ class HTTPService {
     getImageById(id) {
         return axios.get("http://localhost:8080/getImageById/" + id);
     }
+
+    getAllImages(){
+        return axios.get("http://localhost:8080/getAllImages");
+    }
 }
 
 export default new HTTPService();

@@ -47,8 +47,9 @@ public class ImageController {
 		return imageService.getImageByName(name);
 	}
 	
+	// Implemented
 	@GetMapping("/getAllImages")
-	public List<Image> giveAllProducts(){
+	public ResponseEntity<List<FileResource>> giveAllProducts(){
 		return imageService.getAllImages();
 	}
 	
