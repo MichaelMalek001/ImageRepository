@@ -23,6 +23,10 @@ public class ImageService {
 	private ImageRepository repo;
 
 	public ResponseEntity<?> saveImage(MultipartFile file, String name, double price, String description) {
+		boolean fileIsValid = Utils.isValidFile(file);
+		if (!fileIsValid) {
+			return ResponseEntity.badRequest().body("Invalid file type.");
+		}
 		String fileLocation;
 		try {
 			fileLocation = Utils.saveImageToDisk(file);
