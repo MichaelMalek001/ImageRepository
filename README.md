@@ -8,4 +8,5 @@ I decided to store the images in the file system instead of the database for a c
 # Screeshots
 # How to use
 1. Clone the repository
-2. In the frontend folder, run '''npm start'''
+2. In the frontend folder, run ```npm start```
+3. In the backend folder 
