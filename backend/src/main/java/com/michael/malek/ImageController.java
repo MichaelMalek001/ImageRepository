@@ -25,29 +25,16 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 	
-	// Implemented
 	@PostMapping(value = "/addImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public ResponseEntity<?> addImage(@RequestParam("file") MultipartFile file, @RequestParam String name, @RequestParam double price, @RequestParam String description) {
 		return imageService.saveImage(file, name, price, description);
 	}
 	
-	@PostMapping("/addImages")
-	public List<Image> addImages(@RequestBody List<Image> images){
-		return imageService.saveImages(images); 
-	}
-	
-	// Implemented
 	@GetMapping("/getImageById/{id}") 
 	public ResponseEntity<FileResource> giveImageById(@PathVariable int id) {
 		return imageService.getImageById(id);
 	}
 	
-	@GetMapping("/getImageByName/{name}")
-	public Image giveImageByName(@PathVariable String name) {
-		return imageService.getImageByName(name);
-	}
-	
-	// Implemented
 	@GetMapping("/getAllImages")
 	public ResponseEntity<List<FileResource>> giveAllProducts(){
 		return imageService.getAllImages();

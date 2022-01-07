@@ -43,18 +43,11 @@ public class ImageService {
 		return ResponseEntity.ok("File Uploaded Successfully");
 	}
 	
-	public List<Image> saveImages(List<Image> images){
-		return repo.saveAll(images);
-	}
 	
 	public ResponseEntity<FileResource> getImageById(int id) {
 		Image image = repo.findById(id).orElse(null);
 		FileResource fileResource = Utils.imageToFileResource(image);
 		return ResponseEntity.ok().body(fileResource);
-	}
-	
-	public Image getImageByName(String name) {
-		return repo.findByName(name);
 	}
 	
 	public ResponseEntity<List<FileResource>> getAllImages(){
