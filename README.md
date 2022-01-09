@@ -15,6 +15,7 @@ I decided to store the images in the file system instead of the database for a c
 ## Database after uploading an image
 ![image](assets/Database.PNG)
 # How to use
+(must be on a windows computer)
 1. Clone the repository
 2. In the frontend folder, run ```npm start```
 3. In the backend folder run ```java -jar ImageRepository-0.0.1-SNAPSHOT.jar```
