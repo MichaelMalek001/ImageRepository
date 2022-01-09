@@ -30,19 +30,9 @@ public class ImageController {
 		return imageService.saveImage(file, name, price, description);
 	}
 	
-	@GetMapping("/getImageById/{id}") 
-	public ResponseEntity<FileResource> giveImageById(@PathVariable int id) {
-		return imageService.getImageById(id);
-	}
-	
 	@GetMapping("/getAllImages")
 	public ResponseEntity<List<FileResource>> giveAllProducts(){
 		return imageService.getAllImages();
-	}
-	
-	@PutMapping("/putImage")
-	public Image putImage(@RequestBody Image image) {
-		return imageService.updateImage(image);
 	}
 	
 	@DeleteMapping("/deleteImage/{id}")

@@ -43,13 +43,6 @@ public class ImageService {
 		return ResponseEntity.ok("File Uploaded Successfully");
 	}
 	
-	
-	public ResponseEntity<FileResource> getImageById(int id) {
-		Image image = repo.findById(id).orElse(null);
-		FileResource fileResource = Utils.imageToFileResource(image);
-		return ResponseEntity.ok().body(fileResource);
-	}
-	
 	public ResponseEntity<List<FileResource>> getAllImages(){
 		List<Image> allImages =  repo.findAll();
 		List<FileResource> allFileResources = new LinkedList<FileResource>(); 
@@ -81,18 +74,5 @@ public class ImageService {
 	
 	// there is also a method called deleteByIDs which will allow me to delete a list of 
 	// images based on their IDs
-	
-	public Image updateImage(Image image) {
-		Image newImage = repo.findById(image.getId()).orElse(null);
-		
-		// check if product given is actually in the database
-		if(newImage==null) {
-			return null; //TODO : Make this better
-		}
-		newImage.setName(image.getName());
-		newImage.setPrice(image.getPrice());
-		newImage.setDescription(image.getDescription());
-		return repo.save(newImage);
-	}
 	
 }
